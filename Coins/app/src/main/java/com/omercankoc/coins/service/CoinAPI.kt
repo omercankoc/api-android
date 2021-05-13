@@ -1,7 +1,9 @@
 package com.omercankoc.coins.service
 
 import android.telecom.Call
+import io.reactivex.Observable
 import retrofit2.http.GET
+import java.util.*
 import com.omercankoc.coins.model.CoinModel as CoinModel
 
 interface CoinAPI {
@@ -10,8 +12,13 @@ interface CoinAPI {
 
     // GET:
     @GET("prices?key=14305767c0e2b4e57f6fd6bfc0b5bf283273415b")
+
+    //RxJava ile verileri indir.
+    fun getData() : Observable<List<CoinModel>>
+
     // Main Thread bloklamadan (Async) verileri indir.
-    fun getData(): retrofit2.Call<List<CoinModel>>
+    //fun getData(): retrofit2.Call<List<CoinModel>>
+
     // POST:
 
     // UPDATE:
