@@ -15,6 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.Schedulers.io
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.Listener {
     private val BASE_URL = "https://api.nomics.com/v1/"
     private var coinModels : ArrayList<CoinModel>? = null
     private var recyclerViewAdapter : RecyclerViewAdapter? = null
+    private var job : Job? = null
 
     // Disposable : Tek kullanimlik istekler.
     private var compositeDisposable : CompositeDisposable? = null
@@ -51,14 +53,35 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.Listener {
         // Retrofit Object olustur.
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // RxJava ile...
+            //.addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // RxJava ile...
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(CoinAPI::class.java)
+            .build()
+            .create(CoinAPI::class.java)
 
+        // Coroutines ile...
+        job = CoroutineScope(Dispatchers.IO).launch {
+            // Verileri al.
+            val response = retrofit.getData()
+
+            // Verileri Goster.
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        coinModels = ArrayList(it)
+                        coinModels?.let {
+                            recyclerViewAdapter = RecyclerViewAdapter(it,this@MainActivity)
+                            recyclerView.adapter = recyclerViewAdapter
+                        }
+                    }
+                }
+            }
+        }
+
+        /* RxJava ile...
         compositeDisposable?.add(retrofit.getData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::handleResponse))
+            .subscribe(this::handleResponse)) */
 
         /* Retrofit ile...
         // Service ile Retrofit'i birbirine bagla.
@@ -99,7 +122,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.Listener {
         }) */
     }
 
-    // Bos degil ise, RxJava ile Async sekilde verileri al.
+    /* Bos degil ise, RxJava ile Async sekilde verileri al.
     private fun handleResponse(coinList: List<CoinModel>){
         coinModels = ArrayList(coinList)
 
@@ -107,15 +130,19 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.Listener {
             recyclerViewAdapter = RecyclerViewAdapter(it,this@MainActivity)
             recyclerView.adapter = recyclerViewAdapter
         }
-    }
+    } */
 
     override fun onItemClick(coinModel: CoinModel) {
         Toast.makeText(this,"Clicked : ${coinModel.currency}",Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
-        // Temizle...
-        compositeDisposable?.clear()
+        // RxJava ile - Temizle...
+        //compositeDisposable?.clear()
+
+        // Coroutines ile...
+        job?.cancel()
+
         super.onDestroy()
     }
 }
