@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/recycle_view_row.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/rowrecycle.xml" value="0.1503623188405797" />
       </map>
     </option>
   </component>

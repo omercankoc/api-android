@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/linearLayoutRecycle"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:gravity="top|center">
+
+    <TextView
+        android:id="@+id/textViewCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Currency"
+        android:textSize="24dp"
+        android:textColor="@color/black">
+    </TextView>
+
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Price"
+        android:textSize="24dp"
+        android:textColor="@color/black">
+    </TextView>
+
+</LinearLayout>
