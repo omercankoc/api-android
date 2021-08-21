@@ -16,19 +16,19 @@ fun getData() : Call<List<Coin>> // using Retrofit
 
 ### Recycler View (Public)
 ```kotlin
-class RecycleViewAdapter(private val coinList : ArrayList<Coin>) : RecyclerView.Adapter<RecycleViewAdapter.RecycleViewRowHolder>() {
+class RecyclerViewAdapter(private val coinList : ArrayList<Coin>) : RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewRowHolder>() {
 
     // The holder object of the corresponding view.
-    class RecycleViewRowHolder(val binding : RecycleViewRowBinding) : RecyclerView.ViewHolder(binding.root){ }
+    class RecyclerViewRowHolder(val binding : RecyclerViewRowBinding) : RecyclerView.ViewHolder(binding.root){ }
 
     // When the view holder is created, bind the layout's views.
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecycleViewRowHolder {
-        val binding = RecycleViewRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return RecycleViewRowHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewRowHolder {
+        val binding = RecyclerViewRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return RecyclerViewRowHolder(binding)
     }
 
     // After bind, transfer the data to view...
-    override fun onBindViewHolder(holder: RecycleViewRowHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerViewRowHolder, position: Int) {
         holder.binding.textViewCurrency.text = coinList[position].currency
         holder.binding.textViewPrice.text = coinList[position].price
     }
@@ -43,7 +43,7 @@ class RecycleViewAdapter(private val coinList : ArrayList<Coin>) : RecyclerView.
 ## Public Activity
 ```kotlin
 private lateinit var binding : ActivityMainBinding
-private lateinit var recycleViewAdapter : RecycleViewAdapter
+private lateinit var recyclerViewAdapter : RecyclerViewAdapter
 
 private val BASE_URL = "https://raw.githubusercontent.com/"
 private var coinModel : ArrayList<Coin>? = null
@@ -95,8 +95,8 @@ private fun loadDataUsingRetrofit(){
                 response.body()?.let {
                     coinModel = ArrayList(it)
                     coinModel?.let {
-                        recycleViewAdapter = RecycleViewAdapter(coinModel!!)
-                        binding.recyclerView.adapter = recycleViewAdapter
+                        recyclerViewAdapter = RecyclerViewAdapter(coinModel!!)
+                        binding.recyclerView.adapter = recyclerViewAdapter
                     }
                 }
             }
@@ -128,8 +128,8 @@ private fun loadDataUsingRxJava(){
 private fun handleResponse(coinList : List<Coin>){
     coinModel = ArrayList(coinList)
     coinModel?.let {
-        recycleViewAdapter = RecycleViewAdapter(coinModel!!)
-        binding.recyclerView.adapter = recycleViewAdapter
+        recyclerViewAdapter = RecyclerViewAdapter(coinModel!!)
+        binding.recyclerView.adapter = recyclerViewAdapter
     }
 }
 ```
@@ -150,8 +150,8 @@ private fun loadDataUsingCoroutine(){
                 response.body()?.let {
                     coinModel = ArrayList(it)
                     coinModel?.let {
-                        recycleViewAdapter = RecycleViewAdapter(it)
-                        binding.recyclerView.adapter = recycleViewAdapter
+                        recyclerViewAdapter = RecyclerViewAdapter(it)
+                        binding.recyclerView.adapter = recyclerViewAdapter
                     }
                 }
             }
