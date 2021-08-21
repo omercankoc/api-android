@@ -1,7 +1,8 @@
-package com.omercankoc.apiandroid
+package com.omercankoc.apiandroid.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.omercankoc.apiandroid.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
