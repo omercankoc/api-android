@@ -9,9 +9,9 @@ import retrofit2.http.GET
 interface CoinAPI {
     // GET
     // https://raw.githubusercontent.com/ -> BASE_URL
-    // atilsamancioglu/K21-JSONDataSet/master/crypto.json -> KEY_URL
-    @GET("atilsamancioglu/K21-JSONDataSet/master/crypto.json")
-    // fun getData() : Call<List<Coin>> // using Retrofit
+    // omercankoc/api-android/main/coins.json -> KEY_URL
+    @GET("omercankoc/api-android/main/coins.json")
+    fun getData() : Call<List<Coin>> // using Retrofit
     // fun getData() : Observable<List<Coin>> // using RxJava
-    suspend fun getData() : Response<List<Coin>> // using Coroutine
+    // suspend fun getData() : Response<List<Coin>> // using Coroutine
 }

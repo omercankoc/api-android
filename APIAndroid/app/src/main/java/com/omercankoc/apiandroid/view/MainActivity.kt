@@ -28,10 +28,10 @@ class MainActivity : AppCompatActivity() {
     private var coinModel : ArrayList<Coin>? = null
 
     // RxJava
-    //private var compositeDisposable : CompositeDisposable? = null
+    // private var compositeDisposable : CompositeDisposable? = null
 
     // Coroutine
-    private var job : Job? = null
+    // private var job : Job? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,18 +46,17 @@ class MainActivity : AppCompatActivity() {
         // Itemleri dikey konumda goruntule.
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // loadDataUsingRetrofit() // Retrofit
+        loadDataUsingRetrofit() // Retrofit
         // loadDataUsingRxJava() // RxJava
-        loadDataUsingCoroutine() // Coroutine
+        // loadDataUsingCoroutine() // Coroutine
     }
 
     override fun onDestroy() {
         super.onDestroy()
         // compositeDisposable!!.clear() // RxJava
-        job!!.cancel() // Coroutine
+        // job!!.cancel() // Coroutine
     }
 
-    /* USING RETROFIT
     private fun loadDataUsingRetrofit(){
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -84,9 +83,9 @@ class MainActivity : AppCompatActivity() {
                 t.printStackTrace()
             }
         })
-    } */
+    }
 
-    /* USING RXJAVA
+    /*
     private fun loadDataUsingRxJava(){
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -107,8 +106,10 @@ class MainActivity : AppCompatActivity() {
             recycleViewAdapter = RecycleViewAdapter(coinModel!!)
             binding.recyclerView.adapter = recycleViewAdapter
         }
-    } */
+    }
+    */
 
+    /*
     private fun loadDataUsingCoroutine(){
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -131,4 +132,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    */
 }
