@@ -1,4 +1,4 @@
-### Model (Public)
+### Model (Common)
 ```kotlin
 data class Coin(
     var currency : String,
@@ -14,7 +14,7 @@ fun getData() : Call<List<Coin>> // using Retrofit
 // suspend fun getData() : Response<List<Coin>> // using Coroutine
 ```
 
-### Recycler View (Public)
+### Recycler View (Common)
 ```kotlin
 class RecyclerViewAdapter(private val coinList : ArrayList<Coin>) : RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewRowHolder>() {
 
@@ -40,7 +40,7 @@ class RecyclerViewAdapter(private val coinList : ArrayList<Coin>) : RecyclerView
 }
 ```
 
-## Public Activity
+### Public Activity
 ```kotlin
 private lateinit var binding : ActivityMainBinding
 private lateinit var recyclerViewAdapter : RecyclerViewAdapter
